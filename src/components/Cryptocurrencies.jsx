@@ -10,11 +10,6 @@ const Cryptocurrencies = ({simplified}) => {
     const {data, isFetching} = useGetCoinrankingQuery(coinCount);
     const [coins, setCoins] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    if (isFetching) {
-        return (
-            <Loader></Loader>
-        );
-    }
     useEffect(() => {
         const filteredData = data?.data?.coins.filter((coin) => (
                 coin.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -22,7 +17,11 @@ const Cryptocurrencies = ({simplified}) => {
         );
         setCoins(filteredData);
     }, [data, searchTerm]);
-
+    if (isFetching) {
+        return (
+            <Loader></Loader>
+        );
+    }
     return (
         <>
             {
